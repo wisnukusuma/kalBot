@@ -14,7 +14,7 @@ def generate_launch_description():
 
     # Check if we're told to use sim time
     use_sim_time = LaunchConfiguration('use_sim_time')
-
+    use_robot_simulation = LaunchConfiguration('robot_simulation')
     # Process the URDF file
     pkg_path = os.path.join(get_package_share_directory('kalBot'))
     xacro_file = os.path.join(pkg_path,'description','robot.urdf.xacro')
@@ -28,7 +28,14 @@ def generate_launch_description():
         output='screen',
         parameters=[params]
     )
-
+    params = {'robot_simulation': use_robot_simulation }
+    node_kalBot_controller = Node(
+            package='my_controller',
+            executable='driver',
+            output='screen',
+            emulate_tty=True,
+            parameters=[params]
+        )
 
     # Launch!
     return LaunchDescription([
@@ -36,6 +43,11 @@ def generate_launch_description():
             'use_sim_time',
             default_value='false',
             description='Use sim time if true'),
-
-        node_robot_state_publisher
+        DeclareLaunchArgument(
+            'robot_simulation',
+            default_value="True",
+            description='Use sim if true'
+        ),
+        node_robot_state_publisher,
+        node_kalBot_controller
     ])
