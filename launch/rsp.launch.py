@@ -37,10 +37,16 @@ def generate_launch_description():
             emulate_tty=True,
             parameters=[params]
         )
-    params = {'robot_simulation': use_robot_simulation }
     node_kalBot_sonar = Node(
             package='my_controller',
             executable='sonar',
+            output='screen',
+            emulate_tty=True,
+            parameters=[params]
+        )
+    node_kalBot_odomTf = Node(
+            package='my_controller',
+            executable='odomTf',
             output='screen',
             emulate_tty=True,
             parameters=[params]
@@ -63,6 +69,6 @@ def generate_launch_description():
         ,        
         node_robot_state_publisher,
         node_kalBot_controller,
-        node_kalBot_sonar
-
+        node_kalBot_sonar,
+        node_kalBot_odomTf
     ])

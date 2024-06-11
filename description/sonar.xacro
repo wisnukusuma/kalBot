@@ -26,33 +26,6 @@
         </geometry>
       </collision>
     </link>
-
-    <gazebo reference="sonar_link">
-        <material>Gazebo/Blue</material>
-
-        <sensor name="laser" type="ray">
-            <pose> 0 0 0 0 0 0 </pose>
-            <visualize>false</visualize>
-            <update_rate>10</update_rate>
-            <ray>
-                <scan>
-                    <horizontal>
-                        <samples>6</samples>
-                        <min_angle>-1.0</min_angle>
-                        <max_angle>1.0</max_angle>
-                    </horizontal>
-                </scan>
-                <range>
-                    <min>0.3</min>
-                    <max>2.0</max>
-                </range>
-            </ray>
-            <plugin name="laser_controller" filename="libgazebo_ros_ray_sensor.so">
-                <output_type>sensor_msgs/LaserScan</output_type>
-                <frame_name>sonar_link</frame_name>
-            </plugin>
-        </sensor>
-    </gazebo>
 </robot>
  
   
